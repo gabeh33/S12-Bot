@@ -15,7 +15,6 @@ client = discord.Client(intents=intents)
 
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
-print(TOKEN)
 
 # set commands to start with '!'
 bot = commands.Bot(intents=discord.Intents.default(), command_prefix='!')
@@ -25,6 +24,10 @@ bot = commands.Bot(intents=discord.Intents.default(), command_prefix='!')
 @client.event
 async def on_ready():
     print('We have logged in as {0.user}'.format(client))
+    global filming_msg_channel
+    filming_channel = client.get_channel(1053095948110266420)
+    bot_test_channel = client.get_channel(1066168204830982194)
+    filming_msg_channel = bot_test_channel
 
 
 # when a message is sent
@@ -37,8 +40,7 @@ async def on_message(message):
     if message.content.startswith('!alliance_chat'):
         # creates array [!alliance_chat, input_1, input_2...]
         command_contents = message.content.split()
-        print(command_contents)
-        print(type(command_contents[1]))
+
         # throw error if fewer than 3 inputs
         if len(command_contents) < 3:
             await message.channel.send('Alliance chats need at least two players!')
@@ -73,18 +75,16 @@ async def on_message(message):
 
             # find the host role
             host = discord.utils.get(message.guild.roles, name="Host")
-            print(type(host))
             # open the channel to the host
             overwrites[host] = discord.PermissionOverwrite(read_messages=True)
 
             # finds members with the head of logistics role
             hol = discord.utils.get(message.guild.roles, name="Head of Logistics")
-            print(type(hol))
             # open the channel to head of logistics
             overwrites[hol] = discord.PermissionOverwrite(read_messages=True)
 
             # finds members with the head of filming role
-            add_head_of_filming = False
+            add_head_of_filming = True
             if add_head_of_filming:
                 hof = discord.utils.get(message.guild.roles, name="Head of Filming")
                 # open the channel to head of filming
@@ -92,10 +92,9 @@ async def on_message(message):
 
             # Finds the 'Alliance Chats' category
             category = discord.utils.get(message.guild.categories, name="ALLIANCE CHATS")
-            print(type(category))
-            print(category)
+
             # If there were no duplicate names
-            if duplicates == False:
+            if not duplicates:
                 try:
                     # create channel with assembled name, overwrites and category
                     await message.guild.create_text_channel(chat_name, overwrites=overwrites, category=category)
@@ -106,8 +105,47 @@ async def on_message(message):
                 except:
                     # send error message
                     await message.channel.send('Error creating chat! Make sure player names are spelled correctly!')
+
     if message.content.startswith('!request_filmer'):
-        inputs = message.content.split(' ')
+        inputs = message.content.split()
+        # Need at least the players and a time, description is optional
+        if len(inputs) < 3:
+            await message.channel.send(
+                "To request a filmer, use "
+                "!request_filmer  [player1/player2/player3...]  [time]  [description (optional)]\n"
+                "For example, !request_filmer Gabe/Steph/Lauren today-1pm Alliance meeting")
+            return
+        inputs.pop(0)
+
+        # Send a message to the filming chat
+        try:
+            channel_name = inputs[0].replace('/', '-').lower()
+            print(channel_name)
+        except:
+            await message.channel.send(
+                "Unable to recognize players provided, please specify players using player1/player2/player3...")
+
+        request_msg = ' '.join(inputs)
+        bot_message = await filming_msg_channel.send(f'<@&1066783347000483900> Meeting requested: {request_msg}')
+
+        def check(m):
+            return m.message == bot_message.content
+
+        thumb_up = '👍'
+
+        while True:
+            reaction, user = await client.wait_for("reaction_add", check=check)
+            if str(reaction.emoji) == thumb_up:
+                # Add the person to the channel
+                try:
+                    meeting_channel = discord.utils.get(client.get_all_channels(), name=channel_name)
+                    await meeting_channel.send("sending message in the correct channel")
+                except:
+                    print("no channel found")
+                await filming_msg_channel.send(f'{user} is filming the specified meeting: {request_msg}')
+                return
+
+        # Find the channel
 
     # If the message starts with '!devs'
     if message.content.startswith('!devs'):
@@ -141,9 +179,9 @@ async def on_message(message):
         # Output the new amsterdam message.
         output = t2a(
             header=["Season", "Winner"],
-            body=[[1, 'Ryan Mallaby'], [2, 'Lydia Tavera'], [3, 'Austin Shaughnessy'], [4, 'James Zemartis'], [5, 'Alex Sharp'],
-                  [6, 'Delanie Smither'], [7, 'Lauren Murphy'], [8, 'Stephanie Yee'], [9, 'Katalina Baehring'],
-                  [10, 'Margaret Morehead'], [11, 'Siya Gupta']],
+            body=[[1, 'Ryan Mallaby'], [2, 'Lydia Tavera'], [3, 'Austin Shaughnessy'], [4, 'James Zemartis'],
+                  [5, 'Alex Sharp'], [6, 'Delanie Smither'], [7, 'Lauren Murphy'], [8, 'Stephanie Yee'],
+                  [9, 'Katalina Baehring'], [10, 'Margaret Morehead'], [11, 'Siya Gupta']],
             style=PresetStyle.thin_compact
         )
         await message.channel.send(f"```\n{output}\n```")
