@@ -4,6 +4,7 @@ import discord
 from discord.ext import commands
 from dotenv import load_dotenv
 from table2ascii import table2ascii as t2a, PresetStyle
+import randfacts
 
 intents = discord.Intents.default()
 intents.typing = False
@@ -27,12 +28,14 @@ async def on_ready():
     global filming_msg_channel
     filming_channel = client.get_channel(1053095948110266420)
     bot_test_channel = client.get_channel(1066168204830982194)
-    filming_msg_channel = bot_test_channel
-
+    filming_msg_channel = filming_channel
+    global chats_made
+    chats_made = 0
 
 # when a message is sent
 @client.event
 async def on_message(message):
+
     if message.author == client.user:
         return
 
@@ -65,8 +68,7 @@ async def on_message(message):
                 name_dupes.append(name)
                 # find the role associated with the player name
                 role = discord.utils.get(message.guild.roles, name=name)
-                print(type(role))
-                print(role)
+
                 # opens the channel to the player
                 overwrites[role] = discord.PermissionOverwrite(read_messages=True)
                 names = names + name + '-'
@@ -101,6 +103,7 @@ async def on_message(message):
 
                     # send confirmation message
                     await message.channel.send('Chat ' + chat_name + ' created!')
+                    print(f"Created chat with: {chat_name}")
                 # error if it fails
                 except:
                     # send error message
@@ -127,7 +130,7 @@ async def on_message(message):
 
         request_msg = ' '.join(inputs)
         bot_message = await filming_msg_channel.send(f'<@&1066783347000483900> Meeting requested: {request_msg}')
-
+        return
         def check(m):
             return m.message == bot_message.content
 
@@ -159,12 +162,50 @@ async def on_message(message):
         await message.channel.send(
             "https://docs.google.com/document/d/1mRM8xl5f2_zhOgsapYVhOHUXql13RGacO_wCArEuyuU/edit?usp=sharing")
 
+    if message.content.startswith('!gambling'):
+        # send the documentation
+        await message.channel.send(
+            "never stop.")
+
     # If the message starts with '!MVP'
     if message.content.startswith('!MVP'):
         # Output the MVPPPPP
         with open('tatum.jpg', 'rb') as f:
             picture = discord.File(f)
         await message.channel.send(file=picture)
+
+    if message.content.startswith('!steph'):
+        # Output the MVPPPPP
+        with open('steph.jpg', 'rb') as f:
+            picture = discord.File(f)
+        await message.channel.send(file=picture)
+
+    if message.content.startswith('!survivor_house'):
+        await message.channel.send(
+            "9 sewall st. You're always invited")
+
+    if message.content.startswith('!stephanie'):
+        await message.channel.send(
+            "always acting weird")
+
+    if message.content.startswith('!gabe'):
+        await message.channel.send(
+            "likes to vote correctly")
+
+    if message.content.startswith('!fun_fact'):
+        await message.channel.send(
+            randfacts.get_fact())
+
+    if message.content.startswith('!grace'):
+        await message.channel.send("purrrrrrr")
+
+    if message.content.startswith('!kerbs'):
+        await message.channel.send("every single slur (that Kerbs can slay)")
+
+    if message.content.startswith('!siya'):
+        await message.channel.send("wocib af")
+
+
 
     # If the message starts with '!stick_season'
     if message.content.startswith('!stick_season'):
