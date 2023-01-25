@@ -173,22 +173,24 @@ async def on_message(message):
         await message.channel.send(file=picture)
 
     if message.content.startswith('!soccer'):
-        # Output the MVPPPPP
         with open('simpson.png', 'rb') as f:
             picture = discord.File(f)
         await message.channel.send(file=picture)
 
     if message.content.startswith('!steph'):
-        # Output the MVPPPPP
         with open('steph.jpg', 'rb') as f:
             picture = discord.File(f)
         await message.channel.send(file=picture)
 
     if message.content.startswith('!gloose'):
-        # Output the MVPPPPP
         with open('gloose.jpg', 'rb') as f:
             picture = discord.File(f)
         await message.channel.send(file=picture)
+        
+    if message.content.startswith('!roll'):
+        with open('Rick Astley - Never Gonna Give You Up (Official Music Video).mp4', 'rb') as f:
+            video = discord.File(f)
+        await message.channel.send(file=video)
 
     if message.content.startswith('!survivor_house'):
         await message.channel.send(
