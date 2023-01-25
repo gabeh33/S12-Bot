@@ -172,9 +172,21 @@ async def on_message(message):
             picture = discord.File(f)
         await message.channel.send(file=picture)
 
+    if message.content.startswith('!soccer'):
+        # Output the MVPPPPP
+        with open('simpson.png', 'rb') as f:
+            picture = discord.File(f)
+        await message.channel.send(file=picture)
+
     if message.content.startswith('!steph'):
         # Output the MVPPPPP
         with open('steph.jpg', 'rb') as f:
+            picture = discord.File(f)
+        await message.channel.send(file=picture)
+
+    if message.content.startswith('!gloose'):
+        # Output the MVPPPPP
+        with open('gloose.jpg', 'rb') as f:
             picture = discord.File(f)
         await message.channel.send(file=picture)
 
@@ -185,6 +197,13 @@ async def on_message(message):
     if message.content.startswith('!gabe'):
         await message.channel.send(
             "likes to vote correctly")
+
+    if message.content.startswith('!khalid'):
+        await message.channel.send(
+            "Gabe's #1 Ally")
+    if message.content.startswith('!vince'):
+        await message.channel.send(
+            "chronically online")
 
     if message.content.startswith('!nr'):
         await message.channel.send(
@@ -204,9 +223,6 @@ async def on_message(message):
 
     if message.content.startswith('!grace'):
         await message.channel.send("purrrrrrr")
-
-    if message.content.startswith('!kerbs'):
-        await message.channel.send("every single slur (that Kerbs can slay)")
 
     if message.content.startswith('!siya'):
         await message.channel.send("wocib af")
