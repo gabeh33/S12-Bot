@@ -29,8 +29,6 @@ async def on_ready():
     filming_channel = client.get_channel(1053095948110266420)
     bot_test_channel = client.get_channel(1066168204830982194)
     filming_msg_channel = filming_channel
-    global chats_made
-    chats_made = 0
 
 # when a message is sent
 @client.event
@@ -184,13 +182,21 @@ async def on_message(message):
         await message.channel.send(
             "9 sewall st. You're always invited")
 
-    if message.content.startswith('!stephanie'):
-        await message.channel.send(
-            "always acting weird")
-
     if message.content.startswith('!gabe'):
         await message.channel.send(
             "likes to vote correctly")
+
+    if message.content.startswith('!nr'):
+        await message.channel.send(
+            "oh my days and nights")
+
+    if message.content.startswith('!conor'):
+        await message.channel.send(
+            "ratio")
+
+    if message.content.startswith('!biddie'):
+        await message.channel.send(
+            "🪨🪨🪨")
 
     if message.content.startswith('!fun_fact'):
         await message.channel.send(
@@ -204,8 +210,6 @@ async def on_message(message):
 
     if message.content.startswith('!siya'):
         await message.channel.send("wocib af")
-
-
 
     # If the message starts with '!stick_season'
     if message.content.startswith('!stick_season'):
