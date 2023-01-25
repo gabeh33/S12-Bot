@@ -5,6 +5,7 @@ from discord.ext import commands
 from dotenv import load_dotenv
 from table2ascii import table2ascii as t2a, PresetStyle
 import randfacts
+import pyjokes
 
 intents = discord.Intents.default()
 intents.typing = False
@@ -222,6 +223,13 @@ async def on_message(message):
     if message.content.startswith('!fun_fact'):
         await message.channel.send(
             randfacts.get_fact())
+
+    if message.content.startswith('!juliana'):
+        await message.channel.send(
+            pyjokes.get_joke())
+
+    if message.content.startswith('!pranav'):
+        await message.channel.send("she’s nice she’s smart she’s hot")
 
     if message.content.startswith('!grace'):
         await message.channel.send("purrrrrrr")
