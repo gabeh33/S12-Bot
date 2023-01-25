@@ -8,6 +8,7 @@ from spotipy import SpotifyOAuth
 from table2ascii import table2ascii as t2a, PresetStyle
 import randfacts
 import pyjokes
+import random
 
 intents = discord.Intents.default()
 intents.typing = False
@@ -188,7 +189,12 @@ async def on_message(message):
         with open('steph.jpg', 'rb') as f:
             picture = discord.File(f)
         await message.channel.send(file=picture)
-
+        
+    megan_arr = ['Jelly Bellies makes me feel good.', 'What is the purpose of the toy if you have to feed it with an iPad?', 'I know it’s my code, Cole. But she doesn’t look confused; she looks demented.', 'What in the ever-loving Christ is this?', 'What happened to the virtual pet I got you for your birthday?', 'I don’t even take care of my plants.', 'It’s a toy. I assume it’s not that complicated.', 'You’re going to have to make one or two adjustments in order for this to work.', 'The problem with toys like Bruce is that they are so expensive, not everyone can afford to have one.', 'If I had a toy like Bruce, I don’t think I’d ever need another toy again.', 'See if you can guess.', 'This is incredible. I mean, this is unbelievable, isn’t it?', 'Remember the moment. The moment we kicked Hasbro in the d*ck.', 'M3gan is on a constant quest for self-improvement.', 'M3gan is an excellent listener, and she even has a few stories of her own.', 'Katie, seriously, flush the toilet.', 'I thought we were creating a tool to support parents, not replace them.', 'Will I die?', 'A toy like that won’t come cheap.', 'Every day I wake up in this strange house, and I remember my parents are dead.', 'That’s a memory you’ll never forget. I am keeping it for you here.', 'I think the world is about to shift on its axis.', 'As of right now, she’s the most valuable asset this company has.', 'You weren’t porn-hubbing in the office again, were you?', 'M3gan’s not a person; she’s a toy.', 'You made her cry.', 'M3gan has been instructed to help Katie get over the loss. M3gan is part of the family now.', 'If you make a toy that is impossible to get rid of, how do you ever expect her to grow?', 'Experts say the preferred method is to give your child the choice.', 'You can’t make me do something I don’t want to do.', 'Let her go.', 'That is seriously cool.', 'F*ck off, Holly.', 'Make her say something.', 'She’s paired with me. She won’t play with anyone else.', 'So, you’re not going to play with me?', 'You need to learn good manners, Brandon.', 'This is the part where you run.', 'In a nutshell.', 'There will always have forces in the world that wish to cause us harm.', 'If heaven exists, they wouldn’t let boys like Brandon in.', 'I’ve been asking myself that same question.', 'Couldn’t sleep. Occupational hazard.', 'Hold on a second. I thought we were having a conversation.', 'God, I hope not. Because if I did, we’d both be in a lot of trouble.', 'When she looks at me, it’s like I’m the only thing that matters. Kind of like how my mom used to.', 'It’s just, I get too crazy without M3gan.', 'If something’s broken, you don’t just throw it away, you fix it.', 'She’s not a solution. She’s just a distraction.', 'You are all that matters to me now.', 'This is her. She’s locked us out.', 'How could you do this? How could you kill someone?', 'I didn’t kill anyone, Kurt. You did.', 'What did you think was going to happen?', 'Oh really? Is that where we are?', 'I’m going to show her what real love looks like.', 'Being a parent was never in the cards for you.', 'In this family, we don’t run from trauma.', 'There’s another member of the family we didn’t tell you about. His name is Bruce.', 'You ungrateful, little b*tch.']
+    if message.content.startswith('!megan'):
+        await message.channel.send(
+            megan_arr[random.randrange(60)])
+        
     if message.content.startswith('!gloose'):
         with open('gloose.jpg', 'rb') as f:
             picture = discord.File(f)
