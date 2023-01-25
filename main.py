@@ -1,8 +1,10 @@
 # IMPORTS
 import os
 import discord
+import spotipy as spotipy
 from discord.ext import commands
 from dotenv import load_dotenv
+from spotipy import SpotifyOAuth
 from table2ascii import table2ascii as t2a, PresetStyle
 import randfacts
 import pyjokes
@@ -11,6 +13,10 @@ intents = discord.Intents.default()
 intents.typing = False
 intents.presences = False
 intents.message_content = True
+
+spotipy.Spotify(auth_manager=SpotifyOAuth
+(client_id='your_client_id', client_secret='your_client_secret', redirect_uri='your_redirect_uri', scope=['user-library-read']))
+
 # load client and environment
 
 client = discord.Client(intents=intents)
