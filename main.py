@@ -5,7 +5,7 @@ import spotipy as spotipy
 from discord.ext import commands
 from dotenv import load_dotenv
 from spotipy import SpotifyOAuth
-from table2ascii import table2ascii as t2a, PresetStyle
+from table2ascii import table2ascii as t2a, PresetStyle, Merge
 import randfacts
 import pyjokes
 import random
@@ -173,6 +173,26 @@ async def on_message(message):
         await message.channel.send(
             "never stop.")
 
+    # If the message starts with '!stick_season'
+    if message.content.startswith('!stick_season'):
+        # Output the lyrics to a great song
+        with open('lyrics.txt') as f:
+            lines = f.readlines()
+        print(''.join(lines))
+        await message.channel.send(
+            (''.join(lines))[:1999])
+
+    if message.content.startswith('!winners'):
+        # Output the new amsterdam message.
+        output = t2a(
+            header=["Season", "Winner"],
+            body=[[1, 'Ryan Mallaby'], [2, 'Lydia Tavera'], [3, 'Austin Shaughnessy'], [4, 'James Zemartis'],
+                  [5, 'Alex Sharp'], [6, 'Delanie Smither'], [7, 'Lauren Murphy'], [8, 'Stephanie Yee'],
+                  [9, 'Katalina Baehring'], [10, 'Margaret Morehead'], [11, 'Siya Gupta']],
+            style=PresetStyle.thin_compact
+        )
+        await message.channel.send(f"```\n{output}\n```")
+
     # If the message starts with '!MVP'
     if message.content.startswith('!MVP'):
         # Output the MVPPPPP
@@ -184,17 +204,19 @@ async def on_message(message):
         with open('simpson.png', 'rb') as f:
             picture = discord.File(f)
         await message.channel.send(file=picture)
-
-    if message.content.startswith('!steph'):
-        with open('steph.jpg', 'rb') as f:
-            picture = discord.File(f)
-        await message.channel.send(file=picture)
         
     megan_arr = ['Jelly Bellies makes me feel good.', 'What is the purpose of the toy if you have to feed it with an iPad?', 'I know it’s my code, Cole. But she doesn’t look confused; she looks demented.', 'What in the ever-loving Christ is this?', 'What happened to the virtual pet I got you for your birthday?', 'I don’t even take care of my plants.', 'It’s a toy. I assume it’s not that complicated.', 'You’re going to have to make one or two adjustments in order for this to work.', 'The problem with toys like Bruce is that they are so expensive, not everyone can afford to have one.', 'If I had a toy like Bruce, I don’t think I’d ever need another toy again.', 'See if you can guess.', 'This is incredible. I mean, this is unbelievable, isn’t it?', 'Remember the moment. The moment we kicked Hasbro in the d*ck.', 'M3gan is on a constant quest for self-improvement.', 'M3gan is an excellent listener, and she even has a few stories of her own.', 'Katie, seriously, flush the toilet.', 'I thought we were creating a tool to support parents, not replace them.', 'Will I die?', 'A toy like that won’t come cheap.', 'Every day I wake up in this strange house, and I remember my parents are dead.', 'That’s a memory you’ll never forget. I am keeping it for you here.', 'I think the world is about to shift on its axis.', 'As of right now, she’s the most valuable asset this company has.', 'You weren’t porn-hubbing in the office again, were you?', 'M3gan’s not a person; she’s a toy.', 'You made her cry.', 'M3gan has been instructed to help Katie get over the loss. M3gan is part of the family now.', 'If you make a toy that is impossible to get rid of, how do you ever expect her to grow?', 'Experts say the preferred method is to give your child the choice.', 'You can’t make me do something I don’t want to do.', 'Let her go.', 'That is seriously cool.', 'F*ck off, Holly.', 'Make her say something.', 'She’s paired with me. She won’t play with anyone else.', 'So, you’re not going to play with me?', 'You need to learn good manners, Brandon.', 'This is the part where you run.', 'In a nutshell.', 'There will always have forces in the world that wish to cause us harm.', 'If heaven exists, they wouldn’t let boys like Brandon in.', 'I’ve been asking myself that same question.', 'Couldn’t sleep. Occupational hazard.', 'Hold on a second. I thought we were having a conversation.', 'God, I hope not. Because if I did, we’d both be in a lot of trouble.', 'When she looks at me, it’s like I’m the only thing that matters. Kind of like how my mom used to.', 'It’s just, I get too crazy without M3gan.', 'If something’s broken, you don’t just throw it away, you fix it.', 'She’s not a solution. She’s just a distraction.', 'You are all that matters to me now.', 'This is her. She’s locked us out.', 'How could you do this? How could you kill someone?', 'I didn’t kill anyone, Kurt. You did.', 'What did you think was going to happen?', 'Oh really? Is that where we are?', 'I’m going to show her what real love looks like.', 'Being a parent was never in the cards for you.', 'In this family, we don’t run from trauma.', 'There’s another member of the family we didn’t tell you about. His name is Bruce.', 'You ungrateful, little b*tch.']
     if message.content.startswith('!megan'):
         await message.channel.send(
             megan_arr[random.randrange(60)])
-        
+
+    if message.content.startswith('!deez'):
+        await message.channel.send("deez nuts")
+
+    if message.content.startswith('!fun_fact'):
+        await message.channel.send(
+            randfacts.get_fact())
+
     if message.content.startswith('!gloose'):
         with open('gloose.jpg', 'rb') as f:
             picture = discord.File(f)
@@ -216,9 +238,20 @@ async def on_message(message):
     if message.content.startswith('!khalid'):
         await message.channel.send(
             "Gabe's #1 Ally")
+
     if message.content.startswith('!vince'):
         await message.channel.send(
             "chronically online")
+
+    if message.content.startswith('!d_sleepy'):
+        with open('derek.jpg', 'rb') as f:
+            picture = discord.File(f)
+        await message.channel.send(file=picture)
+
+    if message.content.startswith('!steph'):
+        with open('steph.jpg', 'rb') as f:
+            picture = discord.File(f)
+        await message.channel.send(file=picture)
 
     if message.content.startswith('!nr'):
         await message.channel.send(
@@ -231,10 +264,6 @@ async def on_message(message):
     if message.content.startswith('!biddie'):
         await message.channel.send(
             "🪨🪨🪨")
-
-    if message.content.startswith('!fun_fact'):
-        await message.channel.send(
-            randfacts.get_fact())
 
     if message.content.startswith('!juliana'):
         await message.channel.send(
@@ -249,26 +278,68 @@ async def on_message(message):
     if message.content.startswith('!siya'):
         await message.channel.send("wocib af")
 
-    # If the message starts with '!stick_season'
-    if message.content.startswith('!stick_season'):
-        # Output the lyrics to a great song
-        with open('lyrics.txt') as f:
-            lines = f.readlines()
-        print(''.join(lines))
-        await message.channel.send(
-            (''.join(lines))[:1999])
+    if message.content.startswith('!josh'):
+        with open('josh.png', 'rb') as f:
+            picture = discord.File(f)
+        await message.channel.send(file=picture)
 
-    if message.content.startswith('!winners'):
-        # Output the new amsterdam message.
+    if message.content.startswith('!frank'):
+        with open('frank.jpg', 'rb') as f:
+            picture = discord.File(f)
+        await message.channel.send(file=picture)
+
+    if message.content.startswith('!frog'):
+        with open('liz.jpg', 'rb') as f:
+            picture = discord.File(f)
+        await message.channel.send(file=picture)
+
+    if message.content.startswith('!commands'):
+        # Outputs all the commands.
         output = t2a(
-            header=["Season", "Winner"],
-            body=[[1, 'Ryan Mallaby'], [2, 'Lydia Tavera'], [3, 'Austin Shaughnessy'], [4, 'James Zemartis'],
-                  [5, 'Alex Sharp'], [6, 'Delanie Smither'], [7, 'Lauren Murphy'], [8, 'Stephanie Yee'],
-                  [9, 'Katalina Baehring'], [10, 'Margaret Morehead'], [11, 'Siya Gupta']],
+            header=["Commands", "Usage"],
+            body=[
+                ["Game Related Commands", Merge.LEFT],
+                ["!alliance_chat", "!alliance_chat <your role>/player2/player3..."],
+                ["!request_filmer", "!request_filmer player1/player2... description\n"],
+                ["Fun Commands", Merge.LEFT],
+                ["!winners", "Winners SurvivorNEU so far"],
+                ["!fun_fact", "Outputs a fun fact!"],
+                ["!megan", "Quote from M3GAN"],
+                ["!gloose", "The gloose!!"],
+                ["!stick_season", "Outputs the lyrics to (most of) sick season"],
+                ["!devs", "Info on who developed the bot"],
+                ["!MVP", "Who should be the NBA MVP"],
+                ["!gambling", "never stop."],
+                ["!soccer", "Simpson Squad logo"],
+                ["!survivor_house", "secret address"],
+            ],
+            #
             style=PresetStyle.thin_compact
         )
+        print(len(output))
         await message.channel.send(f"```\n{output}\n```")
 
+    if message.content.startswith("!names"):
+        output = t2a(
+            header=["Custom Commands"],
+            body=[
+                ["!gabe"],
+                ["!khalid"],
+                ["!vince"],
+                ["!steph"],
+                ["!nr"],
+                ["!conor"],
+                ["!biddie"],
+                ["!juliana"],
+                ["!pranav"],
+                ["!grace"],
+                ["!siya"],
+                ["!josh"],
+                ["!frank"],
+                ["!frog"],
+            ],
+            footer=["If you want a custom command, message Gabe#9517 on discord!!"])
+        await message.channel.send(f"```\n{output}\n```")
 
 # run bot
 client.run(TOKEN)
