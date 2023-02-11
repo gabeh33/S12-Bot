@@ -1,22 +1,23 @@
 # IMPORTS
 import os
 import discord
-import spotipy as spotipy
+#import spotipy as spotipy
 from discord.ext import commands
 from dotenv import load_dotenv
-from spotipy import SpotifyOAuth
+#from spotipy import SpotifyOAuth
 from table2ascii import table2ascii as t2a, PresetStyle, Merge
 import randfacts
 import pyjokes
 import random
+#import time
 
 intents = discord.Intents.default()
 intents.typing = False
 intents.presences = False
 intents.message_content = True
 
-spotipy.Spotify(auth_manager=SpotifyOAuth
-(client_id='your_client_id', client_secret='your_client_secret', redirect_uri='your_redirect_uri', scope=['user-library-read']))
+#spotipy.Spotify(auth_manager=SpotifyOAuth
+#(client_id='your_client_id', client_secret='your_client_secret', redirect_uri='your_redirect_uri', scope=['user-library-read']))
 
 # load client and environment
 
@@ -231,6 +232,11 @@ async def on_message(message):
         await message.channel.send(
             "9 sewall st. You're always invited")
 
+    if message.content.startswith('!your'):
+        await message.channel.send(
+            "mom")
+
+
     if message.content.startswith('!gabe'):
         await message.channel.send(
             "likes to vote correctly")
@@ -242,6 +248,10 @@ async def on_message(message):
     if message.content.startswith('!vince'):
         await message.channel.send(
             "chronically online")
+
+    if message.content.startswith('!colby'):
+        await message.channel.send(
+            "challenge beast ")
 
     if message.content.startswith('!d_sleepy'):
         with open('derek.jpg', 'rb') as f:
@@ -337,6 +347,7 @@ async def on_message(message):
                 ["!josh"],
                 ["!frank"],
                 ["!frog"],
+                ["!colby"],
             ],
             footer=["If you want a custom command, message Gabe#9517 on discord!!"])
         await message.channel.send(f"```\n{output}\n```")
